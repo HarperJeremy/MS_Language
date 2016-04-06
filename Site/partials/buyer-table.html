@@ -1,0 +1,74 @@
+﻿<nav class="adminnav">
+    <ol>
+        <li id="default"><a href="#" class="edit"><i class="fa fa-edit" title="Edit User"></i>Edit Default Quantities</a></li>
+    </ol>
+</nav>
+
+<section id="contractList" class="admin">
+    <h2>Contracts, Last 60 Days</h2>
+    <ul></ul>
+</section>
+
+<section id="contractDetails" class="admin">
+    <h2 id="buyerEditContractH2">Adjust Current Contract Quantities:</h2>
+    <table id="buyerSKUsQuantity">
+        <thead>
+            <!--<tr>
+                <th>SKU</th>
+                <th>Product Description</th>
+                <th>Qty</th>
+                <th>Opt Out?</th>
+            </tr>-->
+            <tr>
+                <th>Location</th>
+                <th>Opt Out? (Location-wide)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <fieldset class="buttons"><input type="button" class="finished" value="Finished" /></fieldset>
+</section>
+
+<section id="defaultQuantities" class="admin">
+    <h2>Reset default quantities:</h2>
+    <select id="allBuyerLocations"></select>
+    <select id="allContractTypes"></select>
+    <input type="submit" id="getDefaultQuantities" value="Submit" />
+    <table id="locationSKUDefaults">
+        <thead>
+            <tr>
+                <th>SKU Name</th>
+                <th>Monthly Quantity</th>
+                <th>Yearly Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <fieldset class="buttons"><input type="button" class="finished" value="Finished" /></fieldset>
+</section><section id="comparisonReport" class="admin">
+    <h2 id="h2Comparison" data-contractid="0">Comparison Report</h2>
+    <select id="location2DDL"></select>
+    <section>
+        <table id="tblComparison"></table>
+    </section>
+</section>
+
+<section id="contractCharts" class="admin">
+    <h2 id="h2contractCharts" data-contractid="0">Chart Analysis</h2>
+    <select id="location3DDL"></select>
+    <section>
+        <div id="adminCharts">
+            <div id="chart1"></div>
+            <hr />
+            <div id="chart2"></div>
+            <hr />
+            <div id="chart3"></div>
+            <hr />
+            <div id="chart4"></div>
+            <hr />
+            <div id="chart5"></div>
+        </div>
+    </section>
+</section>

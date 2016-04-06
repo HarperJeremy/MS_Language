@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<style>
+    dt
+    {
+        text-decoration: underline
+    }
+</style>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="content/main.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        
+        <script src="scripts/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+            <section class="content">
+                <figure>
+                    <img src="content/images/app-icon.png" alt="MS logo" />
+                    <figcaption>
+                        <p><strong>MOBILEsales</strong><br />
+                        Language Translation Tool<br />
+                        </p>
+                    </figcaption>
+                </figure>
+				<nav>
+					<ol>
+						<li><a href="#" class="languagesLink">Languages</a></li>
+						<li><a href="#" class="englishLink">English Terms</a></li>
+						<li><a href="#" class="translationsLink">Translations</a></li>
+					</ol>
+				</nav>
+            </section>
+        </header>
+
+		<section id="mainContent">
+			<section id="languages" class="content">
+				   <div id="languageList"></div>
+                <br />
+			</section>
+			
+			<section id="englishTerms" class="content">
+				<div id="englishList"></div>
+			</section>
+			
+			<section id="translations" class="content">
+                <select id="languageDDL"></select>
+				<div id="translationList"></div>
+			</section>
+		</section>
+
+        <!--<section id="prefooter"><span class="content">(...more...)</span></section>-->
+        <footer class="clearfix">
+            <section class="content">
+                
+            </section>
+        </footer>
+		
+		<div id="modalBG"></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="scripts/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="scripts/functions.js"></script>
+    </body>
+</html>

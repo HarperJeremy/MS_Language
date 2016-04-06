@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AppModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="AppModelStoreContainer">
+          <EntitySet Name="EnglishTerms" EntityType="AppModel.Store.EnglishTerms" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Languages" EntityType="AppModel.Store.Languages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TranslatedTerms" EntityType="AppModel.Store.TranslatedTerms" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_TranslatedTerms_EnglishTerms" Association="AppModel.Store.FK_TranslatedTerms_EnglishTerms">
+            <End Role="EnglishTerms" EntitySet="EnglishTerms" />
+            <End Role="TranslatedTerms" EntitySet="TranslatedTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslatedTerms_Languages" Association="AppModel.Store.FK_TranslatedTerms_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="TranslatedTerms" EntitySet="TranslatedTerms" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EnglishTerms">
+          <Key>
+            <PropertyRef Name="EnglishTermID" />
+          </Key>
+          <Property Name="EnglishTermID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Term" Type="varchar" MaxLength="500" />
+          <Property Name="BeforeOrAfter" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="CssFileName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TranslatedTerms">
+          <Key>
+            <PropertyRef Name="TranslationID" />
+          </Key>
+          <Property Name="TranslationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="EnglishTermID" Type="int" Nullable="false" />
+          <Property Name="TermTranslated" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_TranslatedTerms_EnglishTerms">
+          <End Role="EnglishTerms" Type="AppModel.Store.EnglishTerms" Multiplicity="1" />
+          <End Role="TranslatedTerms" Type="AppModel.Store.TranslatedTerms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnglishTerms">
+              <PropertyRef Name="EnglishTermID" />
+            </Principal>
+            <Dependent Role="TranslatedTerms">
+              <PropertyRef Name="EnglishTermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslatedTerms_Languages">
+          <End Role="Languages" Type="AppModel.Store.Languages" Multiplicity="1" />
+          <End Role="TranslatedTerms" Type="AppModel.Store.TranslatedTerms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="TranslatedTerms">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AppModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AppEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Languages" EntityType="AppModel.Language" />
+          <EntitySet Name="EnglishTerms" EntityType="AppModel.EnglishTerm" />
+          <EntitySet Name="TranslatedTerms" EntityType="AppModel.TranslatedTerm" />
+          <AssociationSet Name="FK_TranslatedTerms_EnglishTerms" Association="AppModel.FK_TranslatedTerms_EnglishTerms">
+            <End Role="EnglishTerm" EntitySet="EnglishTerms" />
+            <End Role="TranslatedTerm" EntitySet="TranslatedTerms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TranslatedTerms_Languages" Association="AppModel.FK_TranslatedTerms_Languages">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="TranslatedTerm" EntitySet="TranslatedTerms" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Type="Int32" Name="LanguageID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="LanguageName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CssFileName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TranslatedTerms" Relationship="AppModel.FK_TranslatedTerms_Languages" FromRole="Language" ToRole="TranslatedTerm" />
+        </EntityType>
+        <EntityType Name="EnglishTerm">
+          <Key>
+            <PropertyRef Name="EnglishTermID" />
+          </Key>
+          <Property Type="Int32" Name="EnglishTermID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Term" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="BeforeOrAfter" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TranslatedTerms" Relationship="AppModel.FK_TranslatedTerms_EnglishTerms" FromRole="EnglishTerm" ToRole="TranslatedTerm" />
+        </EntityType>
+        <EntityType Name="TranslatedTerm">
+          <Key>
+            <PropertyRef Name="TranslationID" />
+          </Key>
+          <Property Type="Int32" Name="TranslationID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="LanguageID" Nullable="false" />
+          <Property Type="Int32" Name="EnglishTermID" Nullable="false" />
+          <Property Type="String" Name="TermTranslated" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EnglishTerm" Relationship="AppModel.FK_TranslatedTerms_EnglishTerms" FromRole="TranslatedTerm" ToRole="EnglishTerm" />
+          <NavigationProperty Name="Language" Relationship="AppModel.FK_TranslatedTerms_Languages" FromRole="TranslatedTerm" ToRole="Language" />
+        </EntityType>
+        <Association Name="FK_TranslatedTerms_EnglishTerms">
+          <End Type="AppModel.EnglishTerm" Role="EnglishTerm" Multiplicity="1" />
+          <End Type="AppModel.TranslatedTerm" Role="TranslatedTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EnglishTerm">
+              <PropertyRef Name="EnglishTermID" />
+            </Principal>
+            <Dependent Role="TranslatedTerm">
+              <PropertyRef Name="EnglishTermID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TranslatedTerms_Languages">
+          <End Type="AppModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="AppModel.TranslatedTerm" Role="TranslatedTerm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="TranslatedTerm">
+              <PropertyRef Name="LanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AppModelStoreContainer" CdmEntityContainer="AppEntities">
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="AppModel.Language">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="CssFileName" ColumnName="CssFileName" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EnglishTerms">
+            <EntityTypeMapping TypeName="AppModel.EnglishTerm">
+              <MappingFragment StoreEntitySet="EnglishTerms">
+                <ScalarProperty Name="BeforeOrAfter" ColumnName="BeforeOrAfter" />
+                <ScalarProperty Name="Term" ColumnName="Term" />
+                <ScalarProperty Name="EnglishTermID" ColumnName="EnglishTermID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TranslatedTerms">
+            <EntityTypeMapping TypeName="AppModel.TranslatedTerm">
+              <MappingFragment StoreEntitySet="TranslatedTerms">
+                <ScalarProperty Name="TermTranslated" ColumnName="TermTranslated" />
+                <ScalarProperty Name="EnglishTermID" ColumnName="EnglishTermID" />
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="TranslationID" ColumnName="TranslationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
