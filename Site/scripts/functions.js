@@ -30,7 +30,7 @@ $(function(){
 });
 
 function loadLanguageScreen() {
-    
+    showProgress('body');
     var searchResults = '', results = {}, data;
     var dto = { "All": "all" }, data = JSON.stringify(dto);
     $.ajax('../api/Language/Languages', {
@@ -41,15 +41,15 @@ function loadLanguageScreen() {
             if (results.length <= 0) {
                 searchResults = "<span>No results were returned.</span>";
             } else {
-                searchResults = "<h1><span class='w250'>Language</span><span class='w250'>CssFile</span><br /></h1>";
-                for (var i = 0; i < results.length; ++i) {
-                   
-                    searchResults += '<span class="w250">' + results[i].LanguageName + '</span><span class="w250"><a href="#" class="genCSS" id="lang' + results[i].LanguageId + '">' + results[i].CSSFileName + '</a></span><br />';
-                    
+                searchResults = "<h1><label>Language</label><span>CssFile</span></h1><ul>";
+                for (var i = 0; i < results.length; ++i) {                   
+                    searchResults += '<li><label>' + results[i].LanguageName + '</label><span><a href="#" class="genCSS" id="lang' + results[i].LanguageId + '">' + results[i].CSSFileName + '</a></span></li>';
                 }
+                searchResults += '</ul>';
             }
-            searchResults += '<input class="w250" id="newLanguageName" type="text" placeholder="Language Name"></input><input class="w250" id="newLanguageFile" type="text" placeholder="CSS File Name"></input><span class="w100"><a href="#" id="newLanguageA">Add New</a></span><br />';
+            searchResults += '<h2>Add New Language</h2><label>Language Name</label><input id="newLanguageName" type="text" placeholder="Language Name"><br><label>CSS File Name</label><input id="newLanguageFile" type="text" placeholder="CSS File Name"><button id="newLanguageA">Add New</button><span>(begin with "lang-", choose a two- or four-letter based on localization standards -- for example, en-US -- English as spoken in the Unites States (Latin script is deduced given it\'s the most likely script used in this place); en -- English (United States region and Latin script are deduced given they are respectively the most likely region and script used in this place);  en-GB -- English as spoken in the United Kingdom (Latin script is deduced given it\'s the most likely script used in this place).</span>';
             $('#languageList').empty().append(searchResults);
+            hideProgress();
 
             $('#newLanguageA').unbind().click(function (e) {
                 e.preventDefault();
@@ -95,6 +95,7 @@ function loadLanguageScreen() {
 }
 
 function loadEnglishScreen() {
+    showProgress('body');
     var searchResults = '', results = {}, data;
     var dto = { "All": "all" }, data = JSON.stringify(dto);
     $.ajax('../api/EnglishTerm/EnglishTerms', {
@@ -105,20 +106,21 @@ function loadEnglishScreen() {
             if (results.length <= 0) {
                 searchResults = "<span>No results were returned.</span>";
             } else {
-                searchResults = "<h1><span class='w250'>English Term</span><span class='w250'>Position</span><br /></h1>";
+                searchResults = "<table><thead><tr><th>English Term</th><th>Position</th></tr></thead><tbody>";
                 for (var i = 0; i < results.length; ++i) {
                     if (results[i].BeforeOrAfter == "Before") {
-                        searchResults += '<span class="w250"><input type="text" class="w250 editET" id="et' + results[i].EnglishTermID + '" value="' + results[i].Term + '"></input></span><span class="w250"><select id ="ba' + results[i].EnglishTermID + '" class="editBA"><option value="Before" selected>Before</option><option value="After">After</option></select></span><br />';
+                        searchResults += '<tr><td class="tablecenter"><input type="text" class="editET" id="et' + results[i].EnglishTermID + '" value="' + results[i].Term + '"></input></td><td class="tablecenter"><select id ="ba' + results[i].EnglishTermID + '" class="editBA"><option value="Before" selected>Before</option><option value="After">After</option></select></td></tr>';
                     }
                     else {
-                        searchResults += '<span class="w250"><input type="text" class="w250 editET" id="et' + results[i].EnglishTermID + '" value="' + results[i].Term + '"></input></span><span class="w250"><select id ="ba' + results[i].EnglishTermID + '" class="editBA"><option value="Before">Before</option><option value="After" selected>After</option></select></span><br />';
+                        searchResults += '<tr><td><input type="text" class="editET" id="et' + results[i].EnglishTermID + '" value="' + results[i].Term + '"></input></td><td><select id ="ba' + results[i].EnglishTermID + '" class="editBA"><option value="Before">Before</option><option value="After" selected>After</option></select></td></tr>';
 
                     }
 
                 }
             }
-            searchResults += '<span class="w250"><input class="w250" id="newTerm" type="text" placeholder="English Term"></input></span><span class="w250"><select id ="newBeforeOrAfter"><option value="Before">Before</option><option value="after">After</option></select></span><span class="w100"><a href="#" id="newEnglishTermA">Add New</a></span><br />';
+            searchResults += '</tbody></table><fieldset><label>New Term</label><input id="newTerm" type="text" placeholder="English Term"></input></fieldset><fieldset><label>Position</label><select id ="newBeforeOrAfter"><option value="Before">Before</option><option value="after">After</option></select><button id="newEnglishTermA">Add New</button></fieldset>';
             $('#englishList').empty().append(searchResults);
+            hideProgress();
 
             $('#newEnglishTermA').unbind().click(function (e) {
                 e.preventDefault();
@@ -174,6 +176,7 @@ function loadEnglishScreen() {
 }
 
 function loadTranslationScreen() {
+    showProgress('body');
     var searchResults = '', results = {}, data;
     var dto = { "All": "all" }, data = JSON.stringify(dto);
     $.ajax('../api/Language/Languages', {
@@ -184,19 +187,17 @@ function loadTranslationScreen() {
             if (results.length <= 0) {
                 searchResults = "<span>No results were returned.</span>";
             } else {
-                
                 for (var i = 0; i < results.length; ++i) {
-
                     searchResults += '<option value="' + results[i].LanguageId + '">' + results[i].LanguageName + '</option>';
-
                 }
             }
             
             $('#languageDDL').empty().append(searchResults);
+            hideProgress();
 
             $('#languageDDL').unbind().change(function (e) {
                 e.preventDefault();
-                
+                showProgress('body');
                 loadTranslationScreenDetail($(this).val())
             });
         },
@@ -217,16 +218,18 @@ function loadTranslationScreenDetail(languageID) {
             if (results.length <= 0) {
                 searchResults = "<span>No results were returned.</span>";
             } else {
-                searchResults = "<h1><span class='w250'>English Term</span><span class='w250'>Translated Term</span><br /></h1>";
+                searchResults = "<table><thead><tr><th>English Term</th><th>Translated Term</th></tr></thead><tbody>";
                 for (var i = 0; i < results.length; ++i) {
-
-                    searchResults += '<span class="w250">' + results[i].Term + '</span><span class="w250"><input type="text" class="w250 editTT" data-lid="' + results[i].LanguageID + '" data-etid="' + results[i].EnglishTermID + '" id="tt' + results[i].TranslationID + '" value="' + results[i].TermTranslated + '"></input></span><br />';
-
-
-
+                    if (results[i].TermTranslated==="") {
+                        searchResults += '<tr class="hightlighted-row"><td>' + results[i].Term + '</td><td><input type="text" class="highlighted editTT" data-lid="' + results[i].LanguageID + '" data-etid="' + results[i].EnglishTermID + '" id="tt' + results[i].TranslationID + '" value="' + results[i].TermTranslated + '"></td></tr>';
+                    } else {
+                    searchResults += '<tr><td>' + results[i].Term + '</td><td><input type="text" class="editTT" data-lid="' + results[i].LanguageID + '" data-etid="' + results[i].EnglishTermID + '" id="tt' + results[i].TranslationID + '" value="' + results[i].TermTranslated + '"></td></tr>';
+                    }
                 }
             }
+            searchResults += '</tbody></table>';
             $('#translationList').empty().append(searchResults);
+            hideProgress('body');
 
             $('.editTT').unbind().blur(function (e) {
                 e.preventDefault();
