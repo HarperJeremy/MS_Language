@@ -380,21 +380,16 @@
     <Content Include="Site\content\images\SharePointOnline.png" />
     <Content Include="Site\content\main.css" />
     <Content Include="Site\home.html" />
-    <Content Include="Site\member-frame.html" />
-    <Content Include="Site\mhbg.html" />
     <Content Include="Site\partials\admin-forms.html" />
     <Content Include="Site\partials\buyer-table.html" />
     <Content Include="Site\partials\vendor-table.html" />
-    <Content Include="Site\privacy.html" />
     <Content Include="Site\scripts\autoNumeric.js" />
     <Content Include="Site\scripts\exporting.js" />
     <Content Include="Site\scripts\functions.js" />
-    <Content Include="Site\scripts\functionsAdmin.js" />
     <Content Include="Site\scripts\highcharts.js" />
     <Content Include="Site\scripts\jquery-1.10.2.min.js" />
     <Content Include="Site\scripts\jquery.ba-throttle-debounce.js" />
     <Content Include="Site\scripts\modernizr-2.6.2.min.js" />
-    <Content Include="Site\Terms.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

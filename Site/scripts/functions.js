@@ -108,7 +108,7 @@ function loadEnglishScreen() {
             } else {
                 searchResults = "<table><thead><tr><th>English Term</th><th>Position</th></tr></thead><tbody>";
                 for (var i = 0; i < results.length; ++i) {
-                    if (results[i].BeforeOrAfter == "Before") {
+                    if (results[i].BeforeOrAfter == "before") {
                         searchResults += '<tr><td class="tablecenter"><input type="text" class="editET" id="et' + results[i].EnglishTermID + '" value="' + results[i].Term + '"></input></td><td class="tablecenter"><select id ="ba' + results[i].EnglishTermID + '" class="editBA"><option value="Before" selected>Before</option><option value="After">After</option></select></td></tr>';
                     }
                     else {
